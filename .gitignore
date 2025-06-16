@@ -1,0 +1,19 @@
+# Java/Maven
+/target/
+*.class
+*.log
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Sensitive files
+*.env
+application.properties
