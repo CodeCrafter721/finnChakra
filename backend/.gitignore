@@ -1,25 +1,48 @@
-HELP.md
+# =========================
+# OS-specific
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Java & Maven
+# =========================
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
 .mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
+# =========================
+# Spring Tool Suite / Eclipse
+# =========================
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 
-### IntelliJ IDEA ###
-.idea
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
 *.iws
 *.iml
 *.ipr
+out/
 
-### NetBeans ###
+# =========================
+# NetBeans
+# =========================
 /nbproject/private/
 /nbbuild/
 /dist/
@@ -29,5 +52,45 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### VS Code ###
+# =========================
+# VS Code
+# =========================
 .vscode/
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+spring.log
+
+# =========================
+# OS metadata
+# =========================
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# =========================
+# Environment / Secrets
+# =========================
+.env
+.env.*
+*.secret
+*.key
+*.pem
+*.jks
+
+# =========================
+# Test Reports / Coverage
+# =========================
+/coverage/
+/test-output/
+/jacoco.exec
+
+# =========================
+# Others
+# =========================
+*.swp
+*.bak
+*.tmp
