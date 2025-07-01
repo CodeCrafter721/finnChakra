@@ -3,11 +3,18 @@
 # =========================
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
 
 # =========================
 # Java & Maven
 # =========================
 target/
+*.class
+*.jar
+*.war
+*.ear
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -21,7 +28,47 @@ buildNumber.properties
 !**/src/test/**/target/
 
 # =========================
-# Spring Tool Suite / Eclipse
+# Spring Boot Properties & Secrets
+# =========================
+**/application.properties
+**/application.yml
+**/application-*.properties
+**/application-*.yml
+**/application-example.properties
+.env
+.env.*
+*.key
+*.pem
+*.jks
+*.p12
+*.secret
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+spring.log
+
+# =========================
+# Build Outputs
+# =========================
+/build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+bin/
+out/
+
+# =========================
+# IntelliJ IDEA
+# =========================
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# =========================
+# Eclipse / STS
 # =========================
 .apt_generated
 .classpath
@@ -32,13 +79,9 @@ buildNumber.properties
 .sts4-cache
 
 # =========================
-# IntelliJ IDEA
+# VS Code
 # =========================
-.idea/
-*.iws
-*.iml
-*.ipr
-out/
+.vscode/
 
 # =========================
 # NetBeans
@@ -48,38 +91,6 @@ out/
 /dist/
 /nbdist/
 /.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-# =========================
-# VS Code
-# =========================
-.vscode/
-
-# =========================
-# Logs
-# =========================
-*.log
-logs/
-spring.log
-
-# =========================
-# OS metadata
-# =========================
-ehthumbs.db
-Icon?
-Desktop.ini
-
-# =========================
-# Environment / Secrets
-# =========================
-.env
-.env.*
-*.secret
-*.key
-*.pem
-*.jks
 
 # =========================
 # Test Reports / Coverage
@@ -89,8 +100,10 @@ Desktop.ini
 /jacoco.exec
 
 # =========================
-# Others
+# Editor / Temp Files
 # =========================
 *.swp
+*.swo
 *.bak
 *.tmp
+*~
