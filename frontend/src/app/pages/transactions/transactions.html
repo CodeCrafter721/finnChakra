@@ -1,0 +1,108 @@
+<!-- 💡 Summary Section -->
+<div class="summary-grid">
+  <mat-card class="summary-card income">
+    <div class="card-header">
+      <mat-icon>trending_up</mat-icon>
+      <h4>Total Income</h4>
+    </div>
+    <p>{{ totalIncome | currency: 'INR' }}</p>
+  </mat-card>
+
+  <mat-card class="summary-card expense">
+    <div class="card-header">
+      <mat-icon>trending_down</mat-icon>
+      <h4>Total Expense</h4>
+    </div>
+    <p>{{ totalExpense | currency: 'INR' }}</p>
+  </mat-card>
+
+  <mat-card class="summary-card balance">
+    <div class="card-header">
+      <mat-icon>account_balance_wallet</mat-icon>
+      <h4>Net Balance</h4>
+    </div>
+    <p>{{ totalIncome - totalExpense | currency: 'INR' }}</p>
+  </mat-card>
+</div>
+
+<!-- 💡 Filter + Action Panel -->
+<mat-card class="transaction-container mat-elevation-z3">
+  <div class="section-header">
+    <h2><mat-icon>receipt_long</mat-icon> Transactions</h2>
+    <button mat-raised-button color="accent" (click)="addTransaction()">
+      <mat-icon>add</mat-icon> Add
+    </button>
+  </div>
+
+  <div class="filter-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <input matInput [(ngModel)]="category" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker1" [(ngModel)]="start" />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="picker2" [(ngModel)]="end" />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+
+    <div class="actions">
+      <button mat-flat-button color="primary" (click)="fetchTransactions()">Apply</button>
+      <button mat-stroked-button (click)="resetFilters()">Reset</button>
+      <button mat-icon-button color="accent" (click)="exportCsv()" matTooltip="Export CSV">
+        <mat-icon>download</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- 💡 Table Section -->
+  <div class="transaction-list" *ngIf="transactions.length > 0">
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Currency</th>
+          <th>Date</th>
+          <th class="actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tx of transactions">
+          <td>{{ tx.title }}</td>
+          <td>{{ tx.category }}</td>
+          <td>{{ tx.amount | currency: tx.currency }}</td>
+          <td>{{ tx.currency }}</td>
+          <td>{{ tx.date | date: 'shortDate' }}</td>
+          <td>
+            <button mat-icon-button color="primary" (click)="editTransaction(tx)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="deleteTransaction(tx)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <mat-paginator
+      [length]="totalItems"
+      [pageSize]="size"
+      [pageIndex]="page"
+      [pageSizeOptions]="[5, 10, 25]"
+      (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+
+  <p *ngIf="transactions.length === 0" class="no-data">No transactions found.</p>
+</mat-card>

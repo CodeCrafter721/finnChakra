@@ -126,19 +126,22 @@ public class TransactionService {
         return transactionRepository.findByUserEmail(email, pageable);
     }
 
-    public Page<Transaction> getFilteredTransactions(String email, int page, int size, String category, LocalDate start, LocalDate end) {
+    public Page<Transaction> getFilteredTransactions(
+            String email,
+            int page,
+            int size,
+            String category,
+            LocalDate start,
+            LocalDate end,
+            Double minAmount,
+            Double maxAmount
+    ) {
         Pageable pageable = PageRequest.of(page, size, Sort.by("date").descending());
-
-        if (category != null && start != null && end != null) {
-            return transactionRepository.findByUserEmailAndCategoryContainingIgnoreCaseAndDateBetween(email, category, start, end, pageable);
-        } else if (category != null) {
-            return transactionRepository.findByUserEmailAndCategoryContainingIgnoreCase(email, category, pageable);
-        } else if (start != null && end != null) {
-            return transactionRepository.findByUserEmailAndDateBetween(email, start, end, pageable);
-        } else {
-            return transactionRepository.findByUserEmail(email, pageable);
-        }
+        return transactionRepository.findFilteredTransactions(
+                email, category, start, end, minAmount, maxAmount, pageable
+        );
     }
+
 
     public List<Transaction> getAllTransactionsForUser(String email) {
         return transactionRepository.findByUserEmail(email);

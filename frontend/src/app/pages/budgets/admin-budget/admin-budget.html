@@ -1,0 +1,46 @@
+<h2>Admin Budget Thresholds</h2>
+
+<div style="margin-bottom: 12px;">
+  <input matInput [(ngModel)]="filterValue" (keyup)="applyFilter()" placeholder="Filter by email or category" />
+  <button mat-raised-button color="primary" (click)="exportCSV()">Export CSV</button>
+</div>
+
+<table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>User Email</th>
+    <td mat-cell *matCellDef="let element">{{ element.userEmail }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="category">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+    <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+    <td mat-cell *matCellDef="let element">{{ element.thresholdAmount }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="currency">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Currency</th>
+    <td mat-cell *matCellDef="let element">{{ element.currency }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button color="accent" (click)="editThreshold(element)">Edit</button>
+      <button mat-button color="warn" (click)="deleteThreshold(element.id)">Delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"></mat-paginator>
+
+<div style="margin-top: 16px; font-weight: bold;">
+  Total Threshold Amount: ₹{{ totalAmount }}
+</div>

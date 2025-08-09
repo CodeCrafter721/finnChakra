@@ -39,14 +39,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             if (jwtUtil.validateToken(jwt)) {
                 String email = jwtUtil.extractEmail(jwt);
-                String role = jwtUtil.extractRole(jwt);
+                String role = jwtUtil.extractRole(jwt); // role already includes "ROLE_" prefix
 
                 if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    // Optionally fetch user for logging or validation
+                    // Optionally fetch user for validation/logging
                     User user = userRepository.findByEmail(email).orElse(null);
 
                     if (user != null) {
-                        SimpleGrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
+                        // ✅ No extra "ROLE_" prefix added here — it's already in the JWT
+                        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role);
 
                         UsernamePasswordAuthenticationToken authToken =
                                 new UsernamePasswordAuthenticationToken(email, null, Collections.singletonList(authority));

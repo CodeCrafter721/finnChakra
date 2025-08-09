@@ -1,0 +1,112 @@
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  .summary-card {
+    padding: 1.25rem;
+    border-radius: 12px;
+    color: #fff;
+
+    &.income { background: linear-gradient(to right, #34d399, #10b981); }
+    &.expense { background: linear-gradient(to right, #f87171, #ef4444); }
+    &.balance { background: linear-gradient(to right, #60a5fa, #3b82f6); }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+
+      mat-icon {
+        font-size: 24px;
+      }
+
+      h4 {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+
+    p {
+      font-size: 1.4rem;
+      font-weight: bold;
+      margin: 0;
+    }
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+
+  h2 {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+  }
+}
+
+.filter-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  mat-form-field {
+    flex: 1 1 220px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+  }
+}
+
+.transaction-container {
+  padding: 1.5rem;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.transaction-list {
+  overflow-x: auto;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    thead th {
+      background: #f3f4f6;
+      font-weight: 600;
+      position: sticky;
+      top: 0;
+    }
+
+    tbody tr:hover {
+      background: #f9fafb;
+    }
+
+    .actions-header {
+      width: 100px;
+    }
+  }
+}
+
+.no-data {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+  margin-top: 2rem;
+}

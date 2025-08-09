@@ -12,10 +12,15 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableWebSecurity
@@ -63,6 +68,21 @@ public class SecurityConfig {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(customUserDetailsService);
         provider.setPasswordEncoder(passwordEncoder());
+        provider.setAuthoritiesMapper(authoritiesMapper());
         return provider;
+    }
+
+    // ✅ Fix ROLE_ prefix issues
+    @Bean
+    public GrantedAuthoritiesMapper authoritiesMapper() {
+        return authorities -> authorities.stream()
+                .map(grantedAuthority -> {
+                    String authority = grantedAuthority.getAuthority();
+                    if (authority.startsWith("ROLE_")) {
+                        return new SimpleGrantedAuthority(authority.substring(5)); // Removes ROLE_
+                    }
+                    return grantedAuthority;
+                })
+                .collect(Collectors.toSet());
     }
 }

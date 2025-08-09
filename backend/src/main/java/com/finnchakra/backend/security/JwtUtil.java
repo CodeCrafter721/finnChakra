@@ -13,10 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 @Component
 public class JwtUtil {
 
-    private static final String SECRET = "your-256-bit-secret-your-256-bit-secret"; //  Keep it secure
     private static final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 hours
-
-
 
     private final Key key;
 
@@ -25,11 +22,10 @@ public class JwtUtil {
         this.key = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    //  Generate token with email and role
     public String generateToken(String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
-                .claim("role", role)
+                .claim("role", "ROLE_" + role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(key, SignatureAlgorithm.HS256)

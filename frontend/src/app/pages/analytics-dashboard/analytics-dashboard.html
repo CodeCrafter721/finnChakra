@@ -1,0 +1,45 @@
+<!-- analytics-dashboard.html -->
+<div class="analytics-container">
+  <div class="chart-toggle">
+    <mat-button-toggle-group [value]="chartType" (change)="onChartTypeChange($event.value)">
+      <mat-button-toggle value="line">Line</mat-button-toggle>
+      <mat-button-toggle value="bar">Bar</mat-button-toggle>
+      <mat-button-toggle value="area">Area</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div id="monthlyChart" *ngIf="monthlyChartOptions">
+    <apx-chart [series]="monthlyChartOptions.series"
+               [chart]="monthlyChartOptions.chart"
+               [title]="monthlyChartOptions.title"
+               [xaxis]="monthlyChartOptions.xaxis"
+               [yaxis]="monthlyChartOptions.yaxis"
+               [dataLabels]="monthlyChartOptions.dataLabels"
+               [stroke]="monthlyChartOptions.stroke"
+               [markers]="monthlyChartOptions.markers">
+    </apx-chart>
+  </div>
+
+  <div id="categoryChart" *ngIf="categoryChartOptions" style="margin-top: 32px;">
+    <apx-chart [series]="categoryChartOptions.series"
+               [chart]="categoryChartOptions.chart"
+               [labels]="categoryChartOptions.labels"
+               [title]="categoryChartOptions.title"
+               [legend]="categoryChartOptions.legend"
+               [responsive]="categoryChartOptions.responsive">
+    </apx-chart>
+  </div>
+
+  <div *ngIf="userThresholds.length" class="user-thresholds">
+    <h3>Budget vs Expense Progress</h3>
+    <div *ngFor="let threshold of userThresholds" class="threshold-bar">
+      <div class="label">{{ threshold.category }}</div>
+      <div class="custom-progress-bar">
+        <div class="bar"
+             [ngClass]="{ 'exceeded': isExceeded(threshold) }"
+             [style.width.%]="getProgress(threshold)">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

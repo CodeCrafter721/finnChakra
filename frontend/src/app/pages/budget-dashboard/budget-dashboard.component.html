@@ -1,0 +1,7 @@
+<ng-container *ngIf="role === 'ADMIN'">
+  <app-admin-budget></app-admin-budget>
+</ng-container>
+
+<ng-container *ngIf="role === 'USER'">
+  <app-user-budget></app-user-budget>
+</ng-container>

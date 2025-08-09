@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{ model?.id ? 'Edit Threshold' : 'New Threshold' }}</h2>
+
+<form (ngSubmit)="save()">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Category</mat-label>
+    <input matInput [(ngModel)]="model.category" name="category" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Threshold Amount</mat-label>
+    <input matInput type="number" [(ngModel)]="model.thresholdAmount" name="amount" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Currency</mat-label>
+    <input matInput [(ngModel)]="model.currency" name="currency" required />
+  </mat-form-field>
+
+  <div style="text-align: right; margin-top: 1rem;">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+  </div>
+</form>

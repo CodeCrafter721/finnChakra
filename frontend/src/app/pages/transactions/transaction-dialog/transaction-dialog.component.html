@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  <mat-icon>{{ data.transaction ? 'edit' : 'add_circle' }}</mat-icon>
+  {{ data.transaction ? 'Edit' : 'Add' }} Transaction
+</h2>
+
+<mat-dialog-content [formGroup]="form" class="dialog-form">
+  <mat-form-field appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Amount</mat-label>
+    <input matInput type="number" formControlName="amount" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Currency</mat-label>
+    <input matInput formControlName="currency" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <input matInput formControlName="category" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option value="INCOME">Income</mat-option>
+      <mat-option value="EXPENSE">Expense</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="recurring">Recurring</mat-checkbox>
+
+  <mat-form-field appearance="outline" *ngIf="form.value.recurring">
+    <mat-label>Recurrence</mat-label>
+    <input matInput formControlName="recurrence" />
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

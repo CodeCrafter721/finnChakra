@@ -33,6 +33,7 @@ import java.util.List;
 @Tag(name = "Transaction Controller", description = "Manage transactions and summaries")
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:4200")
 @SecurityRequirement(name = "bearerAuth")
 public class TransactionController {
 
@@ -62,19 +63,17 @@ public class TransactionController {
             @RequestParam(required = false) String category,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end,
+            @RequestParam(required = false) Double minAmount,
+            @RequestParam(required = false) Double maxAmount,
             HttpServletRequest request
     ) {
         String email = extractEmailFromToken(request);
-        boolean noPagination = page == 0 && size == 0 && category == null && start == null && end == null;
-
-        if (noPagination) {
-            List<Transaction> all = transactionService.getTransactionsByUserEmail(email);
-            return ResponseEntity.ok(all);
-        }
-
-        Page<Transaction> result = transactionService.getFilteredTransactions(email, page, size, category, start, end);
+        Page<Transaction> result = transactionService.getFilteredTransactions(
+                email, page, size, category, start, end, minAmount, maxAmount
+        );
         return ResponseEntity.ok(result);
     }
+
 
     @PostMapping("/transactions")
     @Operation(summary = "Add a new transaction (recurring supported)")

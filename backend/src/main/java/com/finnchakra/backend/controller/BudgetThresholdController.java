@@ -26,6 +26,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/budget")
+@CrossOrigin(origins = "http://localhost:4200")
 @Tag(name = "Budget Thresholds", description = "Manage budget alerts for users and admins")
 public class BudgetThresholdController {
 
